@@ -1,0 +1,28 @@
+/* XPM */
+static char *abacusru_16x16[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 5 1",
+/* colors */
+"  c None",
+"+ c #8B0000",
+"= c #600000",
+"X c #8B7E66",
+"O c #CAE1FF",
+/* pixels */
+"XXXXXXXXXXXXXXXX",
+"X              X",
+"X   + + = = + +X",
+"XOO++++====++++X",
+"X   + + = = + +X",
+"X              X",
+"X   + + = = + +X",
+"XOO++++====++++X",
+"X   + + = = + +X",
+"X              X",
+"X   + + = = + +X",
+"XOO++++====++++X",
+"X   + + = = + +X",
+"X              X",
+"XXXXXXXXXXXXXXXX",
+"                "
+};

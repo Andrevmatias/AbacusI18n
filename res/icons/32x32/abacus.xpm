@@ -1,0 +1,43 @@
+/* XPM */
+static char *abacus_32x32[] = {
+/* width height ncolors chars_per_pixel */
+"32 32 4 1",
+/* colors */
+"  c None",
+"+ c #8B0000",
+"X c #8B7E66",
+"o c #FFD700",
+/* pixels */
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"X   +++    +++    +++    +++   X",
+"X  +++++  +++++  +++++  +++++  X",
+"X  +++++  +++++  +++++  +++++  X",
+"X   +++    +++    +++    +++   X",
+"X    o      o      o      o    X",
+"X    o      o      o      o    X",
+"X    o      o      o      o    X",
+"X    o      o      o      o    X",
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+"X    o      o      o      o    X",
+"X    o      o      o      o    X",
+"X    o      o      o      o    X",
+"X    o      o      o      o    X",
+"X   +++    +++    +++    +++   X",
+"X  +++++  +++++  +++++  +++++  X",
+"X  +++++  +++++  +++++  +++++  X",
+"X   +++    +++    +++    +++   X",
+"X   +++    +++    +++    +++   X",
+"X  +++++  +++++  +++++  +++++  X",
+"X  +++++  +++++  +++++  +++++  X",
+"X   +++    +++    +++    +++   X",
+"X   +++    +++    +++    +++   X",
+"X  +++++  +++++  +++++  +++++  X",
+"X  +++++  +++++  +++++  +++++  X",
+"X   +++    +++    +++    +++   X",
+"X   +++    +++    +++    +++   X",
+"X  +++++  +++++  +++++  +++++  X",
+"X  +++++  +++++  +++++  +++++  X",
+"X   +++    +++    +++    +++   X",
+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+};

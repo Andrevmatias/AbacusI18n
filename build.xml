@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all">
+  <property file="${basedir}/build.properties"/>
+  <property name="dest" value="classes"/>
+  <property name="icons" value="res/icons"/>
+  <property name="src" value="src"/>
+  <property name="res" value="res"/>
+  <property name="applet" value="${Widget}Applet"/>
+  <property name="app" value="${Widget}App"/>
+  <property name="html" value="${app}.html"/>
+  <target name="prepare">
+    <unjar src="${java.home}/lib/plugin.jar" dest="${res}">
+      <patternset>
+        <include name="netscape/javascript/*"/>
+      </patternset>
+    </unjar>
+  </target>
+  <target name="init">
+    <mkdir dir="${dest}/icons"/>
+  </target>
+  <target depends="init,prepare" name="compile">
+    <javac debug="true" optimize="true" deprecation="true" destdir="${dest}" nowarn="false" includeantruntime="false">
+      <compilerarg value="-Xlint"/>
+      <classpath>
+        <pathelement path="${res}"/>
+        <pathelement path="${java.home}/lib/plugin.jar"/>
+      </classpath>
+      <src path="${src}"/>
+    </javac>
+  </target>
+  <target depends="init,prepare" name="furnish">
+    <copy todir="${dest}/icons">
+      <fileset dir="${icons}">
+        <exclude name="mouse*.png"/>
+        <include name="*.png"/>
+      </fileset>
+    </copy>
+    <copy todir="${dest}">
+      <fileset dir="${res}">
+        <include name="life*.xml"/>
+        <include name="icons/16x16/*.png"/>
+        <include name="icons/32x32/*.png"/>
+        <include name="icons/48x48/*.png"/>
+        <include name="sounds/*.au"/>
+	<include name="netscape/javascript/*"/>
+      </fileset>
+    </copy>
+  </target>
+  <path id="PMD.lib">
+    <fileset dir="../../pmd/pmd-latest/lib">
+    <!--fileset dir="${PMD.home}/lib"-->
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+  <target name="pmd">
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+      <classpath refid="PMD.lib" />
+   </taskdef>
+    <pmd shortFilenames="true">
+      <ruleset>../../../ruleset.xml</ruleset>
+      <ruleset>rulesets/favorites.xml</ruleset>
+      <ruleset>basic</ruleset>
+      <formatter type="text" toFile="pmd_report.txt" linkPrefix="http://pmd.sourceforge.net/xref/"/>
+      <fileset dir="src">
+        <include name="**.java"/>
+      </fileset>
+    </pmd>
+  </target>
+  <target depends="compile,furnish,jar" name="package"/>
+  <target name="deploy"/>
+  <target name="clean">
+    <delete failonerror="false" includeemptydirs="true">
+      <fileset dir="${dest}"/>
+    </delete>
+  </target>
+  <target depends="init" name="manifest">
+    <mkdir dir="${dest}/META-INF"/>
+    <manifest file="${dest}/META-INF/MANIFEST.MF">
+      <attribute name="Manifest-Version" value="1.0"/>
+      <attribute name="Created-By" value="${user}@${domain}"/>
+      <attribute name="Permissions" value="sandbox"/>
+      <attribute name="Codebase" value="www.${domain} ${domain}"/>
+      <attribute name="Application-Name" value="${Widget}"/>
+      <attribute name="Main-Class" value="${packages}/${widget}/${applet}"/>
+    </manifest>
+  </target>
+  <target depends="compile,furnish,manifest" name="jar">
+    <jar destfile="${app}.jar" basedir="${dest}"
+      manifest="${dest}/META-INF/MANIFEST.MF"/>
+  </target>
+  <target name="tar">
+    <tar destfile="${basedir}/${widget}.tar">
+      <tarfileset dir="${src}" prefix="${widget}">
+        <include name="Makefile"/>
+        <include name="*.xml"/>
+        <include name="*.pro*"/>
+        <include name="*.htm*"/>
+        <include name="src/**/*.jav*"/>
+        <include name="*.sco*"/>
+        <include name="res/icons/**"/>
+        <include name="res/icons/*.png"/>
+        <include name="res/sounds/*.au"/>
+	<include name="res/netscape/javascript/*"/>
+      </tarfileset>
+    </tar>
+  </target>
+  <target depends="tar" name="bzip2">
+    <bzip2 src="${widget}.tar" zipfile="${widget}.tar.bz2"/> <!--destfile-->
+  </target>
+  <target depends="tar" name="gzip">
+    <gzip src="${widget}.tar" zipfile="${widget}.tar.gz"/> <!--destfile-->
+  </target>
+  <target depends="tar" name="compress">
+    <exec executable="compress">
+      <arg line="-f ${widget}.tar"/>
+    </exec>
+    <echo message="Building: ${basedir}${file.separator}${widget}.tar.Z"/>
+  </target>
+  <target depends="jar" name="zip">
+    <zip destfile="${basedir}/${widget}.zip">
+      <zipfileset dir="${src}" prefix="${widget}">
+        <include name="Makefile"/>
+        <include name="*.xml"/>
+        <include name="*.pro*"/>
+        <include name="*.htm*"/>
+        <include name="src/**/*.jav*"/>
+        <include name="*.sco*"/>
+        <include name="res/icons/*x*/**"/>
+        <include name="res/icons/*.png"/>
+        <include name="res/sounds/*.au"/>
+	<include name="res/netscape/javascript/*"/>
+	<include name="*.jar"/>
+      </zipfileset>
+    </zip>
+  </target>
+  <target name="pkzip">
+    <delete dir="${widget}"/>
+    <delete file="${widget}.zip"/>
+    <mkdir dir="${widget}"/>
+    <copy todir="${widget}">
+      <fileset dir="${src}">
+        <include name="Makefile"/>
+        <include name="*.xml"/>
+        <include name="*.pro*"/>
+        <include name="*.htm*"/>
+        <include name="src/**/*.jav*"/>
+        <include name="*.sco*"/>
+        <include name="res/icons/*x*/**/*.xpm"/>
+      </fileset>
+      <filterchain>
+        <tokenfilter delimoutput="\r\n"/>
+      </filterchain>
+    </copy>
+    <copy todir="${widget}">
+      <fileset dir="${src}">
+        <include name="res/icons/*x*/**/*.png"/>
+        <include name="res/icons/*.png"/>
+        <include name="res/sounds/*.au"/>
+	<include name="netscape/javascript/*"/>
+      </fileset>
+    </copy>
+    <zip destfile="${basedir}/${widget}.zip">
+      <zipfileset dir="${src}/${widget}" prefix="${widget}">
+        <include name="Makefile"/>
+        <include name="*.xml"/>
+        <include name="*.pro*"/>
+        <include name="*.htm*"/>
+        <include name="src/**/*.jav*"/>
+        <include name="*.sco*"/>
+        <include name="icons/*"/>
+        <include name="*.png"/>
+        <include name="*.au"/>
+	<include name="netscape/javascript/*"/>
+      </zipfileset>
+    </zip>
+    <delete dir="${widget}"/>
+  </target>
+  <target name="dos">
+    <delete dir="dos"/>
+    <mkdir dir="dos"/>
+    <copy todir="dos">
+      <fileset dir="${src}">
+        <include name="Makefile"/>
+        <include name="*.xml"/>
+        <include name="*.pro*"/>
+        <include name="*.htm*"/>
+        <include name="src/**/*.jav*"/>
+        <include name="*.sco*"/>
+        <include name="res/icons/*x*/**/*.xpm"/>
+      </fileset>
+      <filterchain>
+        <tokenfilter delimoutput="\r\n"/>
+      </filterchain>
+    </copy>
+    <move todir="${src}">
+      <fileset dir="dos">
+        <include name="*"/>
+      </fileset>
+    </move>
+    <delete dir="dos"/>
+  </target>
+  <target name="unix">
+    <delete dir="unix"/>
+    <mkdir dir="unix"/>
+    <copy todir="unix">
+      <fileset dir="${src}">
+        <include name="Makefile"/>
+        <include name="*.xml"/>
+        <include name="*.pro*"/>
+        <include name="*.htm*"/>
+        <include name="src/**/*.jav*"/>
+        <include name="*.sco*"/>
+        <include name="res/icons/*x*/**/*.xpm"/>
+      </fileset>
+      <filterchain>
+        <tokenfilter delimoutput="\n"/>
+      </filterchain>
+    </copy>
+    <move todir="${src}">
+      <fileset dir="unix">
+        <include name="*"/>
+      </fileset>
+    </move>
+    <delete dir="unix"/>
+  </target>
+  <target name="mac">
+    <delete dir="mac"/>
+    <mkdir dir="mac"/>
+    <copy todir="mac">
+      <fileset dir="${src}">
+        <include name="Makefile"/>
+        <include name="*.xml"/>
+        <include name="*.pro*"/>
+        <include name="*.htm*"/>
+        <include name="src/**/*.jav*"/>
+        <include name="*.sco*"/>
+        <include name="res/icons/*x*/**/*.xpm"/>
+      </fileset>
+      <filterchain>
+        <tokenfilter delimoutput="\r"/>
+      </filterchain>
+    </copy>
+    <move todir="${src}">
+      <fileset dir="mac">
+        <include name="*"/>
+      </fileset>
+    </move>
+    <delete dir="mac"/>
+  </target>
+  <target depends="jar" name="run">
+    <java jar="${app}.jar" fork="true"/>
+  </target>
+  <target depends="jar" name="debug">
+    <exec executable="jdb">
+      <arg line="sun.applet.AppletViewer ${html}"/>
+    </exec>
+  </target>
+  <target depends="jar" name="viewer">
+    <exec executable="appletviewer">
+      <arg line="${html}"/>
+    </exec>
+  </target>
+  <target depends="jar" name="special">
+    <exec executable="appletviewer">
+      <arg line="${app}Special.html"/>
+    </exec>
+  </target>
+  <target depends="jar" name="mozilla">
+    <exec executable="${mozilla.home}/bin/mozilla">
+      <arg line="file://${basedir}/${html}"/>
+    </exec>
+  </target>
+  <target depends="jar" name="netscape">
+    <exec executable="C:/Program Files/Netscape/Netscape/Netscp">
+      <arg line="file://${basedir}/${html}"/>
+    </exec>
+  </target>
+  <target depends="jar" name="ff">
+    <exec executable="C:/Program Files/Mozilla Firefox/firefox">
+      <arg line="file://${basedir}/${html}"/>
+    </exec>
+  </target>
+  <target depends="jar" name="ie">
+    <exec executable="C:/Program Files/Internet Explorer/iexplore">
+      <arg line="file://${basedir}/${html}"/>
+    </exec>
+  </target>
+  <target depends="clean" name="distclean">
+    <delete failonerror="false" includeemptydirs="true">
+      <fileset file="*.zip"/>
+      <fileset file="*.bz2"/>
+      <fileset file="*.gz"/>
+      <fileset file="*.Z"/>
+      <fileset file="*.tar"/>
+      <fileset file="*.jar"/>
+    </delete>
+  </target>
+  <target depends="distclean" name="prepareclean">
+    <delete failonerror="false" includeemptydirs="true">
+      <fileset dir="netscape"/>
+    </delete>
+  </target>
+  <target depends="init,compile,furnish,package,deploy" name="make"/>
+  <target name="gcj">
+    <exec executable="gcj">
+      <arg line="--main=${applet} -o ${applet} ${applet}.java"/>
+    </exec>
+  </target>
+  <target depends="clean,make" name="rebuild"/>
+  <target depends="make" name="all"/>
+</project>

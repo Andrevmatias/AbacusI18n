@@ -1,0 +1,118 @@
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html">
+<title>Lee's Abacus</title>
+<link rel="shortcut icon" href="../images/abacus.ico" type="image/ico">
+<script language="JavaScript">
+<!--
+function resizeWindow() {
+	var newWidth, newHeight;
+	var maxWidth = 1600, maxHeight = 1200;
+
+	if (self.innerWidth) {
+		var scrollLength = 16;
+
+		newWidth = self.innerWidth - scrollLength;
+		newHeight = self.innerHeight - scrollLength;
+	} else if (document.documentElement &&
+			document.documentElement.clientWidth) {
+		newWidth = document.documentElement.clientWidth;
+		newHeight = document.documentElement.clientHeight;
+	} else if (document.body) {
+		newWidth = document.body.clientWidth;
+		newHeight = document.body.clientHeight;
+	}
+	if (newWidth > maxWidth)
+		newWidth = maxWidth;
+	if (newHeight > maxHeight)
+		newHeight = maxHeight;
+	document.AbacusApplet.setSize(newWidth, newHeight);
+	//window.scroll((maxWidth - newWidth) / 2, 0);
+}
+
+var resizeId = null;
+function resize() {
+	if (resizeId) clearTimeout(resizeId);
+	resizeId = setTimeout('resizeWindow();', 400); //time in miliseconds
+}
+// -->
+</script>
+</head>
+<body bgcolor="#AEB2C3" onresize="resize()" onload="resize()"
+topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
+<script language="JavaScript">
+<!--
+window.onResize = resize;
+window.onLoad = resize;
+
+function shuffleDown() {
+	window.blur();
+}
+
+function quit() {
+	window.close();
+}
+
+function readCookie(name) {
+	var cname = name + "=";
+	var dc = document.cookie;
+
+	if (dc.length > 0) {
+		begin = dc.indexOf(cname);
+		if (begin != -1) {
+			begin += cname.length;
+			end = dc.indexOf(";", begin);
+			if (end == -1)
+				end = dc.length;
+			return unescape(dc.substring(begin, end));
+		}
+	}
+	return null;
+}
+
+function writeCookie(name, value, expires, path, domain, secure) {
+	document.cookie = name + "=" + escape(value) +
+		((expires == null) ? "" : "; expires=" +
+		expires.toGMTString()) +
+		((path == null) ? "" : "; path=" + path) +
+		((domain == null) ? "" : "; domain=" + domain) +
+		((secure == null) ? "" : "; secure");
+}
+
+function writeDemoCookie() {
+	var data = document.AbacusApplet.readUserDemo();
+	var cookieName = "abacusDemo";
+	var expiration = new Date();
+	var duration = expiration.getTime() + (365 * 24 * 60 * 60 * 1000);
+
+	expiration.setTime(duration);
+	writeCookie(cookieName, data, expiration);
+}
+
+function readDemoCookie() {
+	var cookieName = "abacusDemo";
+	var data = readCookie(cookieName);
+
+	document.AbacusApplet.setDemo(data);
+}
+// -->
+</script>
+<applet name="AbacusApplet"
+code="org/tux/bagleyd/abacus/AbacusApplet.class"
+archive="AbacusApp.jar" codebase="."
+alt="Applet loading is unsupported or turned off."
+width=1600 height=1200 hspace=0 vspace=0 align=top
+mayscript>
+<param name="permissions" value="sandbox">
+<param name="lee" value="1">
+<param name="leftAuxRails" value="7">
+<param name="rightAuxRails" value="11">
+<param name="format" value="Korean">
+</applet>
+<hr>
+<a href="../AbacusLee.html" target="_blank">HOW TO LEARN LEE'S ABACUS</a>.<br>
+<a href="../xabacus.html" target="_blank">Manual for xabacus</a> (similar X program).<br>
+Java Source: <a href="abacus.zip">abacus.zip</a>.<br>
+</body>
+</html>
