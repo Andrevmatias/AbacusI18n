@@ -44,6 +44,7 @@ import java.awt.event.WindowEvent;
 import java.net.URL;
 import java.util.EnumSet;
 import java.util.Random;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JCheckBoxMenuItem;
@@ -60,6 +61,7 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 /*import static java.awt.GraphicsDevice.WindowTranslucency.*;*/
+
 
 import org.tux.bagleyd.abacus.learn.AbacusTest;
 import org.tux.bagleyd.abacus.learn.DemoDialog;
@@ -88,20 +90,20 @@ import org.tux.bagleyd.util.TextPrompt;
 
 public class AbacusApplet extends JApplet implements ActionListener {
 	private static final long serialVersionUID = 42L;
-	public static final String nl = System.getProperty("line.separator");
+	public static final String nl = System.getProperty("line.separator"); //$NON-NLS-1$
 	static final int MAX_RAILS = 24;
 	static final String[] commandString = new String[] {
-		"Clear", "Complement ~",
-		"Increment", "Decrement", "Format",
-		"Roman Nvmerals", /*"Ancient Roman Numerals (", */"Group",
-		"Sign", "Quarter", "Twelfth",
-		"Quarter Percent", "Subdeck", "Eighth", "Museum",
-		/*"Modern Roman Numerals )", */"Anomaly", "Watch",
-		"Right To Left Add +", "Right To Left Mult *",
-		"Sound @", "Speed Up >", "Slow Down <",
-		"Demo", "Teach $",
-		"Description ?", "Features !", "References ^", "About",
-		"Detach", "Exit"};
+		Messages.getString("AbacusApplet.Clear"), Messages.getString("AbacusApplet.Complement"), //$NON-NLS-1$ //$NON-NLS-2$
+		Messages.getString("AbacusApplet.Increment"), Messages.getString("AbacusApplet.Decrement"), Messages.getString("AbacusApplet.Format"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Messages.getString("AbacusApplet.RomanNumerals"), /*"Ancient Roman Numerals (", */Messages.getString("AbacusApplet.Group"), //$NON-NLS-1$ //$NON-NLS-2$
+		Messages.getString("AbacusApplet.Sign"), Messages.getString("AbacusApplet.Quarter"), Messages.getString("AbacusApplet.Twelfth"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Messages.getString("AbacusApplet.QuarterPercent"), Messages.getString("AbacusApplet.Subdeck"), Messages.getString("AbacusApplet.Eighth"), Messages.getString("AbacusApplet.Museum"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		/*"Modern Roman Numerals )", */Messages.getString("AbacusApplet.Anomaly"), Messages.getString("AbacusApplet.Watch"), //$NON-NLS-1$ //$NON-NLS-2$
+		Messages.getString("AbacusApplet.RightToLeftAdd"), Messages.getString("AbacusApplet.RightToLeftMult"), //$NON-NLS-1$ //$NON-NLS-2$
+		Messages.getString("AbacusApplet.Sound"), Messages.getString("AbacusApplet.SpeedUp"), Messages.getString("AbacusApplet.SlowDown"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		Messages.getString("AbacusApplet.Demo"), Messages.getString("AbacusApplet.Teach"), //$NON-NLS-1$ //$NON-NLS-2$
+		Messages.getString("AbacusApplet.Description"), Messages.getString("AbacusApplet.Features"), Messages.getString("AbacusApplet.References"), Messages.getString("AbacusApplet.About"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		Messages.getString("AbacusApplet.Detach"), Messages.getString("AbacusApplet.Exit")}; //$NON-NLS-1$ //$NON-NLS-2$
 	static final char[] commandChar = new char[] {
 		'c', '~',
 		'i', 'd', 'f',
@@ -196,9 +198,9 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	AbacusCalc abacusCalc = new AbacusCalc(abacus);
 	AbacusCalc leftAuxAbacusCalc = new AbacusCalc(leftAuxAbacus);
 	AbacusCalc rightAuxAbacusCalc = new AbacusCalc(rightAuxAbacus);
-	JTextField leftAuxValueTextField = new JTextField("");
-	JTextField rightAuxValueTextField = new JTextField("");
-	JTextField valueTextField = new JTextField("");
+	JTextField leftAuxValueTextField = new JTextField(""); //$NON-NLS-1$
+	JTextField rightAuxValueTextField = new JTextField(""); //$NON-NLS-1$
+	JTextField valueTextField = new JTextField(""); //$NON-NLS-1$
 	TextPrompt leftAuxValueTextPrompt = null;
 	TextPrompt rightAuxValueTextPrompt = null;
 	TextPrompt valueTextPrompt = null;
@@ -217,7 +219,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	JPanel secondaryPanel = new JPanel();
 	JFrame frame;
 	boolean isPopped = false;
-	Font font = new Font("Verdana", Font.PLAIN, 12);
+	Font font = new Font("Verdana", Font.PLAIN, 12); //$NON-NLS-1$
 	Slider displaySlider = null, baseSlider = null;
  	JMenu secondaryRailsMenu, museumMenu;
 	JCheckBoxMenuItem romanNumeralsMenuItem = null;
@@ -254,7 +256,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			});
 			// possible if debugging
 			if (!getApplication()) {
-				String icon = (nl.compareTo("\n") == 0) ?
+				String icon = (nl.compareTo("\n") == 0) ? //$NON-NLS-1$
 					AbacusInterface.ICONS_48x48[0] :
 					AbacusInterface.ICONS_16x16[0];
 
@@ -294,7 +296,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 		});
 		frame.setVisible(true);
 		repaint();
-		detachMenuItem.setText("Attach");
+		detachMenuItem.setText(Messages.getString("AbacusApplet.Attach")); //$NON-NLS-1$
 	}
 
 	void popinApplet() {
@@ -307,7 +309,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 		invalidate();
 		validate();
 		repaint();
-		detachMenuItem.setText("Detach");
+		detachMenuItem.setText(Messages.getString("AbacusApplet.Detach")); //$NON-NLS-1$
 	}
 
 	public boolean popApplet() {
@@ -416,13 +418,13 @@ public class AbacusApplet extends JApplet implements ActionListener {
 		if (string == null)
 			return value;
 		try {
-			if (string.equalsIgnoreCase("true") ||
-					string.equalsIgnoreCase("yes") ||
-					string.equalsIgnoreCase("on"))
+			if (string.equalsIgnoreCase("true") || //$NON-NLS-1$
+					string.equalsIgnoreCase("yes") || //$NON-NLS-1$
+					string.equalsIgnoreCase("on")) //$NON-NLS-1$
 				return true;
-			else if (string.equalsIgnoreCase("false") ||
-					string.equalsIgnoreCase("no") ||
-					string.equalsIgnoreCase("off"))
+			else if (string.equalsIgnoreCase("false") || //$NON-NLS-1$
+					string.equalsIgnoreCase("no") || //$NON-NLS-1$
+					string.equalsIgnoreCase("off")) //$NON-NLS-1$
 				return false;
 			return (Integer.parseInt(string) != 0);
 		} catch (NumberFormatException e) {
@@ -445,117 +447,117 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	public void getOpts() {
 		String string;
 
-		widthValue = getOpt("windowWidth", widthValue);
-		heightValue = getOpt("windowHeight", heightValue);
-		xValue = getOpt("windowX", xValue);
-		yValue = getOpt("windowY", yValue);
-		fgColor = getOpt("fgColor", fgColor);
-		bgColor = getOpt("bgColor", bgColor);
-		borderColor = getOpt("borderColor", borderColor);
-		primaryBeadColor = getOpt("primaryBeadColor", primaryBeadColor);
-		leftAuxBeadColor = getOpt("leftAuxBeadColor",
+		widthValue = getOpt("windowWidth", widthValue); //$NON-NLS-1$
+		heightValue = getOpt("windowHeight", heightValue); //$NON-NLS-1$
+		xValue = getOpt("windowX", xValue); //$NON-NLS-1$
+		yValue = getOpt("windowY", yValue); //$NON-NLS-1$
+		fgColor = getOpt("fgColor", fgColor); //$NON-NLS-1$
+		bgColor = getOpt("bgColor", bgColor); //$NON-NLS-1$
+		borderColor = getOpt("borderColor", borderColor); //$NON-NLS-1$
+		primaryBeadColor = getOpt("primaryBeadColor", primaryBeadColor); //$NON-NLS-1$
+		leftAuxBeadColor = getOpt("leftAuxBeadColor", //$NON-NLS-1$
 			leftAuxBeadColor);
-		rightAuxBeadColor = getOpt("rightAuxBeadColor",
+		rightAuxBeadColor = getOpt("rightAuxBeadColor", //$NON-NLS-1$
 			rightAuxBeadColor);
-		secondaryBeadColor = getOpt("secondaryBeadColor",
+		secondaryBeadColor = getOpt("secondaryBeadColor", //$NON-NLS-1$
 			secondaryBeadColor);
-		highlightBeadColor = getOpt("highlightBeadColor",
+		highlightBeadColor = getOpt("highlightBeadColor", //$NON-NLS-1$
 			highlightBeadColor);
-		primaryRailColor = getOpt("primaryRailColor",
+		primaryRailColor = getOpt("primaryRailColor", //$NON-NLS-1$
 			primaryRailColor);
-		secondaryRailColor = getOpt("secondaryRailColor",
+		secondaryRailColor = getOpt("secondaryRailColor", //$NON-NLS-1$
 			secondaryRailColor);
-		highlightRailColor = getOpt("highlightRailColor",
+		highlightRailColor = getOpt("highlightRailColor", //$NON-NLS-1$
 			highlightRailColor);
-		lineRailColor = getOpt("lineRailColor",
+		lineRailColor = getOpt("lineRailColor", //$NON-NLS-1$
 			lineRailColor);
-		sound = getOpt("sound", sound);
-		script = getOpt("script", script);
-		controlValue = getOpt("control", controlValue);
-		rightToLeftAddValue = getOpt("rightToLeftAdd",
+		sound = getOpt("sound", sound); //$NON-NLS-1$
+		script = getOpt("script", script); //$NON-NLS-1$
+		controlValue = getOpt("control", controlValue); //$NON-NLS-1$
+		rightToLeftAddValue = getOpt("rightToLeftAdd", //$NON-NLS-1$
 			rightToLeftAddValue);
-		rightToLeftMultValue = getOpt("rightToLeftMult",
+		rightToLeftMultValue = getOpt("rightToLeftMult", //$NON-NLS-1$
 			rightToLeftMultValue);
-		leeValue = getOpt("lee", leeValue);
-		railsValue = getOpt("rails", railsValue);
+		leeValue = getOpt("lee", leeValue); //$NON-NLS-1$
+		railsValue = getOpt("rails", railsValue); //$NON-NLS-1$
 		if (railsValue < AbacusInterface.MIN_RAILS)
 			railsValue = AbacusInterface.DEFAULT_RAILS;
-		leftAuxRailsValue = getOpt("leftAuxRails", leftAuxRailsValue);
+		leftAuxRailsValue = getOpt("leftAuxRails", leftAuxRailsValue); //$NON-NLS-1$
 		if (leftAuxRailsValue < AbacusInterface.MIN_RAILS)
 			leftAuxRailsValue =
 				AbacusInterface.DEFAULT_LEFT_AUX_RAILS;
-		rightAuxRailsValue = getOpt("rightAuxRails",
+		rightAuxRailsValue = getOpt("rightAuxRails", //$NON-NLS-1$
 			rightAuxRailsValue);
 		if (rightAuxRailsValue < AbacusInterface.MIN_RAILS)
 			rightAuxRailsValue =
 				AbacusInterface.DEFAULT_RIGHT_AUX_RAILS;
 		totalAuxRailsValue = leftAuxRailsValue + rightAuxRailsValue;
-		verticalValue = getOpt("vertical", verticalValue);
-		colorSchemeValue = getOpt("colorScheme", colorSchemeValue);
-		slotValue = getOpt("slot", slotValue);
-		diamondValue = getOpt("diamond", diamondValue);
-		railIndexValue = getOpt("railIndex", railIndexValue);
-		topOrientValue = getOpt("topOrient", topOrientValue);
-		bottomOrientValue = getOpt("bottomOrient", bottomOrientValue);
-		topNumberValue = getOpt("topNumber", topNumberValue);
-		bottomNumberValue = getOpt("bottomNumber", bottomNumberValue);
-		topFactorValue = getOpt("topFactor", topFactorValue);
-		bottomFactorValue = getOpt("bottomFactor", bottomFactorValue);
-		topSpacesValue = getOpt("topSpaces", topSpacesValue);
-		bottomSpacesValue = getOpt("bottomSpaces", bottomSpacesValue);
-		topPieceValue = getOpt("topPiece", topPieceValue);
-		bottomPieceValue = getOpt("bottomPiece", bottomPieceValue);
-		topPiecePercentValue = getOpt("topPiecePercent",
+		verticalValue = getOpt("vertical", verticalValue); //$NON-NLS-1$
+		colorSchemeValue = getOpt("colorScheme", colorSchemeValue); //$NON-NLS-1$
+		slotValue = getOpt("slot", slotValue); //$NON-NLS-1$
+		diamondValue = getOpt("diamond", diamondValue); //$NON-NLS-1$
+		railIndexValue = getOpt("railIndex", railIndexValue); //$NON-NLS-1$
+		topOrientValue = getOpt("topOrient", topOrientValue); //$NON-NLS-1$
+		bottomOrientValue = getOpt("bottomOrient", bottomOrientValue); //$NON-NLS-1$
+		topNumberValue = getOpt("topNumber", topNumberValue); //$NON-NLS-1$
+		bottomNumberValue = getOpt("bottomNumber", bottomNumberValue); //$NON-NLS-1$
+		topFactorValue = getOpt("topFactor", topFactorValue); //$NON-NLS-1$
+		bottomFactorValue = getOpt("bottomFactor", bottomFactorValue); //$NON-NLS-1$
+		topSpacesValue = getOpt("topSpaces", topSpacesValue); //$NON-NLS-1$
+		bottomSpacesValue = getOpt("bottomSpaces", bottomSpacesValue); //$NON-NLS-1$
+		topPieceValue = getOpt("topPiece", topPieceValue); //$NON-NLS-1$
+		bottomPieceValue = getOpt("bottomPiece", bottomPieceValue); //$NON-NLS-1$
+		topPiecePercentValue = getOpt("topPiecePercent", //$NON-NLS-1$
 			topPiecePercentValue);
-		bottomPiecePercentValue = getOpt("bottomPiecePercent",
+		bottomPiecePercentValue = getOpt("bottomPiecePercent", //$NON-NLS-1$
 			bottomPiecePercentValue);
-		shiftPercentValue = getOpt("shiftPercent", shiftPercentValue);
-		subdeckValue = getOpt("subdeck", subdeckValue);
-		subbeadValue = getOpt("subbead", subbeadValue);
-		signValue = getOpt("sign", signValue);
-		decimalPositionValue = getOpt("decimalPosition",
+		shiftPercentValue = getOpt("shiftPercent", shiftPercentValue); //$NON-NLS-1$
+		subdeckValue = getOpt("subdeck", subdeckValue); //$NON-NLS-1$
+		subbeadValue = getOpt("subbead", subbeadValue); //$NON-NLS-1$
+		signValue = getOpt("sign", signValue); //$NON-NLS-1$
+		decimalPositionValue = getOpt("decimalPosition", //$NON-NLS-1$
 			decimalPositionValue);
-		groupValue = getOpt("group", groupValue);
-		groupSizeValue = getOpt("groupSize", groupSizeValue);
-		decimalCommaValue = getOpt("decimalComma", decimalCommaValue);
-		baseValue = getOpt("base", baseValue);
+		groupValue = getOpt("group", groupValue); //$NON-NLS-1$
+		groupSizeValue = getOpt("groupSize", groupSizeValue); //$NON-NLS-1$
+		decimalCommaValue = getOpt("decimalComma", decimalCommaValue); //$NON-NLS-1$
+		baseValue = getOpt("base", baseValue); //$NON-NLS-1$
 		if (baseValue < AbacusInterface.MIN_BASE ||
 				baseValue > AbacusInterface.MAX_BASE)
 			baseValue = AbacusInterface.DEFAULT_BASE;
-		subbaseValue = (getOpt("eighth", subbaseValue == 8)) ? 8 : 12;
-		anomalyValue = getOpt("anomaly", anomalyValue);
-		shiftAnomalyValue = getOpt("shiftAnomaly", shiftAnomalyValue);
-		anomalySqValue = getOpt("anomalySq", anomalySqValue);
-		shiftAnomalySqValue = getOpt("shiftAnomalySq",
+		subbaseValue = (getOpt("eighth", subbaseValue == 8)) ? 8 : 12; //$NON-NLS-1$
+		anomalyValue = getOpt("anomaly", anomalyValue); //$NON-NLS-1$
+		shiftAnomalyValue = getOpt("shiftAnomaly", shiftAnomalyValue); //$NON-NLS-1$
+		anomalySqValue = getOpt("anomalySq", anomalySqValue); //$NON-NLS-1$
+		shiftAnomalySqValue = getOpt("shiftAnomalySq", //$NON-NLS-1$
 			shiftAnomalySqValue);
-		displayBaseValue = getOpt("displayBase", displayBaseValue);
+		displayBaseValue = getOpt("displayBase", displayBaseValue); //$NON-NLS-1$
 		if (displayBaseValue < AbacusInterface.MIN_BASE ||
 				displayBaseValue > AbacusInterface.MAX_BASE)
 			displayBaseValue = AbacusInterface.DEFAULT_BASE;
-		pressOffsetValue = getOpt("pressOffset", pressOffsetValue);
-		romanNumeralsValue = getOpt("romanNumerals",
+		pressOffsetValue = getOpt("pressOffset", pressOffsetValue); //$NON-NLS-1$
+		romanNumeralsValue = getOpt("romanNumerals", //$NON-NLS-1$
 			romanNumeralsValue);
-		latinValue = getOpt("latin", latinValue);
-		ancientRomanValue = getOpt("ancientRoman", ancientRomanValue);
-		modernRomanValue = getOpt("modernRoman", modernRomanValue);
-		string = getOpt("format");
+		latinValue = getOpt("latin", latinValue); //$NON-NLS-1$
+		ancientRomanValue = getOpt("ancientRoman", ancientRomanValue); //$NON-NLS-1$
+		modernRomanValue = getOpt("modernRoman", modernRomanValue); //$NON-NLS-1$
+		string = getOpt("format"); //$NON-NLS-1$
 		if (string != null) {
 			modeValue = AbacusInterface.setModeFromFormat(string);
 		}
-		modeValue = getOpt("mode", modeValue);
+		modeValue = getOpt("mode", modeValue); //$NON-NLS-1$
 		if (modeValue < AbacusInterface.Modes.Chinese.ordinal() ||
 				modeValue > AbacusInterface.Modes.Generic.ordinal())
 			modeValue = AbacusInterface.Modes.Chinese.ordinal();
-		string = getOpt("museum");
+		string = getOpt("museum"); //$NON-NLS-1$
 		if (string != null) {
 			museumValue = AbacusInterface.setMuseumFromFormat(string);
 		}
-		museumValue = getOpt("submode", museumValue);
+		museumValue = getOpt("submode", museumValue); //$NON-NLS-1$
 		if (museumValue < 0 ||
 				museumValue >= AbacusInterface.MAX_MUSEUMS)
 			museumValue = generator.nextInt(AbacusInterface.MAX_MUSEUMS);
-		delayValue = getOpt("delay", delayValue);
-		testValue = getOpt("test", testValue);
+		delayValue = getOpt("delay", delayValue); //$NON-NLS-1$
+		testValue = getOpt("test", testValue); //$NON-NLS-1$
 	}
 
 	public void showDemoMessage(String msg) {
@@ -572,8 +574,8 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			FontMetrics fm = getFontMetrics(font);
 
 			demoDialog = new DemoDialog(ComponentUtil.findJFrame(this),
-				this, AbacusInterface.TITLE + ": Demo",
-				msg + "                               ",
+				this, AbacusInterface.TITLE + Messages.getString("AbacusApplet.DemoTitle"), //$NON-NLS-1$
+				msg + "                               ", //$NON-NLS-1$
 				largeIcon);
 			demoDialog.setBounds(this.getSize().width / 2,
 				this.getSize().height / 2,
@@ -600,7 +602,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	}
 
 	public static String readUserDemo() {
-		String demoString = "";
+		String demoString = ""; //$NON-NLS-1$
 
 		return demoString;
 	}
@@ -633,7 +635,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			FontMetrics fm = getFontMetrics(font);
 
 			testDialog = new TestDialog(ComponentUtil.findJFrame(this),
-				this, test, AbacusInterface.TITLE + ": Test",
+				this, test, AbacusInterface.TITLE + Messages.getString("AbacusApplet.TestTitle"), //$NON-NLS-1$
 				testNames, largeIcon, testValue);
 			testDialog.setBounds(this.getSize().width / 2,
 				this.getSize().height / 2,
@@ -656,7 +658,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			FontMetrics fm = getFontMetrics(font);
 
 			teachDialog = new TeachDialog(ComponentUtil.findJFrame(this),
-				this, abacus, AbacusInterface.TITLE + ": Teach",
+				this, abacus, AbacusInterface.TITLE + Messages.getString("AbacusApplet.TeachTitle"), //$NON-NLS-1$
 				AbacusInterface.TEACH_STRING0, 0, largeIcon);
 			teachDialog.setBounds(this.getSize().width / 2,
 				this.getSize().height / 2,
@@ -685,7 +687,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	public void showMessage(String msg) {
 		if (aDialog == null || !OKDialog.getActive()) {
 			aDialog = new OKDialog(ComponentUtil.findJFrame(this),
-				AbacusInterface.TITLE, msg, "OK",
+				AbacusInterface.TITLE, msg, Messages.getString("AbacusApplet.OK"), //$NON-NLS-1$
 				mediumIcon, false);
 			aDialog.setBounds(this.getSize().width / 2,
 				this.getSize().height / 2, 350, 120);
@@ -696,99 +698,25 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	public void descriptionHelp() {
 		if (aDialog == null || !OKDialog.getActive()) {
 			aDialog = new OKDialog(ComponentUtil.findJFrame(this),
-				AbacusInterface.TITLE + ": Description",
-"This is an implementation of the classic Chinese Abacus " +
-"(Saun-pan) which has its origins in the 12th century." + nl +
-" " + nl +
-"The device has two decks. Each deck, separated by a " +
-"partition, normally has 13 rails on which are mounted beads." + nl +
-"Each rail on the top deck contains 1 or 2 beads, and each " +
-"rod on the bottom deck contains 4 or 5 beads.  Each bead on" + nl +
-"the upper deck has a value of five, while each bead on the " +
-"lower deck has value of one. Beads are considered counted," + nl +
-"when moved towards the partition separating the decks, i.e. " +
-"to add a value of one, a bead in the bottom deck is moved" + nl +
-"up, and to add a value of 5, a bead in the top deck is moved " +
-"down." + nl +
-" " + nl +
-"The basic operations of the abacus are addition and subtraction. " +
-" Multiplication can be done by mentally multiplying the" + nl +
-"digits and adding up the intermediate results on the abacus. " +
-" Division would be similar where the intermediate results" + nl +
-"are subtracted.  There are techniques like using your thumb " +
-"with forefinger which does not apply with mouse entry." + nl +
-"Also with multiplication, one can carry out calculations on " +
-"different parts of the abacus for scratch work, here it is" + nl +
-"nice to have a long abacus." + nl +
-" " + nl +
-"The pre-WWII Japanese Abacus (Soroban) (or Korean Supan) " +
-"is similar to the Chinese Abacus but has only one bead" + nl +
-"per rail on the top deck.  The later Japanese Abacus was " +
-"further simplified to have only 4 beads per rail on the" + nl +
-"bottom deck." + nl +
-" " + nl +
-"The Roman Hand-Abacus predates the Chinese Abacus and is " +
-"very similar to the later Japanese Abacus, but seems to" + nl +
-"have fallen out of use with the Fall of the Roman Empire " +
-"(at least 3 are in existence).  The Roman Abaci are brass" + nl +
-"plates where the beads move in slots.  In addition to the " +
-"normal 7 columns of beads, they generally have 2 special " + nl +
-"columns on the right side.  In two examples: the first " +
-"special column was for 12ths (12 uncia (ounces) = 1 as) and" + nl +
-"had one extra bead in the bottom deck.  Also the last column " +
-"was a combination of halves, quarters, and twelfths of an" + nl +
-"ounce and had no beads in the top deck and 4 beads at the " +
-"bottom (beads did not have to come to the top to be" + nl +
-"counted but at one of 3 marked points, where the top bead " +
-"was for halves, the next bead for quarters, and the last two" + nl +
-"beads for twelfths).  In another surviving example: the 2 " +
-"special columns were switched and the combination column" + nl +
-"was broken into 3 separate slots.  If available, decimal " +
-"input is ignored." + nl +
-" " + nl +
-"The Russian Abacus was invented in the 17th century, here " +
-"the beads are moved from right to left.  It has colored" + nl +
-"beads in the middle for ease of use.  Quarters represent " +
-"1/4 Rubles and are only present historically on the Russian" + nl +
-"Abacus (Schoty).  Some of the older Schoty have a extra place " +
-"for the 1/4 Kopek (quarter percent) as well as the 1/4" + nl +
-"Ruble (quarter)." + nl +
-" " + nl +
-"The Danish Abacus was used in the early 20th century in " +
-"elementary schools as a teaching aid." + nl +
-" " + nl +
-"The Medieval Counter is a primitive form of the abacus and " +
-"was used in Europe as late as the 1600s.  It was useful" + nl +
-"considering they were using it with Roman Numerals.   This " +
-"is similar to the Salamis Greek Tablet from 4th or 5th" + nl +
-"Century BCE." + nl +
-" " + nl +
-"The Mesoamerican Nepohualtzintzin is a Japanese Abacus " +
-"base 20.  The Mesoamericans had base 20 with the" + nl +
-"exception of the 3rd decimal place where instead of " +
-"20 * 20 = 400 the third place marked 360 and the 4th place was" + nl +
-"20 * 360, etc.  They independently created their own zero " +
-"(only Babylon (base 60) and India (base 10) have done this)" + nl +
-"but the anomaly took away its true power." + nl +
-" " + nl +
-"An easy way of figuring out time in seconds given hours, " +
-"minutes, and seconds, can be done on the abacus with" + nl +
-"special Japanese Abacus with special anomaly \"watch\" settings." + nl +
-" " + nl +
-"The Chinese Solid-and-Broken-Bar System is a base 12 " +
-"numbering system and not really an abacus.  When the" + nl +
-"abacus is setup in this way though (topFactor 3, topNumber 3, " +
-"bottomNumber 2, base 12, displayBase 12), it is easy to" + nl +
-"relate the two." + nl +
-" " + nl +
-"The signed bead is an invention of the author and is not " +
-"present on any historical abacus (to his knowledge) and is" + nl +
-"used to represent negatives.  \"New & Improved\" abacus " +
-"models have two auxiliary decks stacked above the principal" + nl +
-"deck that enable multiplication, division, square-root, and " +
-"cube-root computations to be performed with equal ease as" + nl +
-"addition and subtraction (well, so I have read).",
-				"OK", largeIcon, true);
+				AbacusInterface.TITLE + Messages.getString("AbacusApplet.DescriptionTitle"), //$NON-NLS-1$
+Messages.getString("AbacusApplet.ProgramDescription")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.DecksDescription")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.OperationsDescription")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.JapaneseDescription")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.RomanDescription")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.RussianDescription") //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.DanishDescription")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.MedievalDescription")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.MesoamericanDescription"), //$NON-NLS-1$
+				Messages.getString("AbacusApplet.OK"), largeIcon, true); //$NON-NLS-1$
 			aDialog.setBackground(Color.white);
 			aDialog.setVisible(true);
 		}
@@ -797,97 +725,56 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	public void featuresHelp() {
 		if (aDialog == null || !OKDialog.getActive()) {
 			aDialog = new OKDialog(ComponentUtil.findJFrame(this),
-				AbacusInterface.TITLE + ": Features",
-"Click \"mouse-left\" button on a bead you want to move.  The " +
-"beads will shift themselves to vacate the area of the" + nl +
-"column that was clicked." + nl +
-" " + nl +
-"Click \"mouse-right\" button, or press \"C\" or \"c\" keys, " +
-"to clear the abacus." + nl +
-" " + nl +
-"Press \"O\" or \"o\" keys to toggle the demo mode." + nl +
-" " + nl +
-"Press \"$\" key to toggle the teach mode." + nl +
-" " + nl +
-"In teach mode, \"+\" key toggles starting side to sum, " +
-"\"*\" key toggles for starting side for multiplicand." + nl +
-" " + nl +
-"Press \"~\" or \"`\" keys to complement the beads on the rails." + nl +
-" " + nl +
-"Press \"I\" or \"i\" keys to increment the number of rails.  " +
-"Press \"D\" or \"d\" keys to decrement the number of rails." + nl +
-" " + nl +
-"Press \"F\" or \"f\" keys to switch between Chinese, Japanese, " +
-"Japanese, Korean, Roman, Russian, and Danish formats." + nl +
-"There is an extra \"Generic\" format, this allows one to " +
-"break some rules binding the other formats (for example," + nl +
-"if one wanted more beads on top deck than on bottom deck you " +
-"would use this, in addition to resource option changes)." + nl +
-" " + nl +
-"Press \"V\" or \"v\" keys to toggle the Roman Nvmerals.  " +
-"(Pardon humor/typo but ran out of letters)." + nl +
-" " + nl +
-"Press \"S\" or \"s\" keys to toggle the sign sign bead." + nl +
-" " + nl +
-"Press \"U\" or \"u\" keys to toggle the availability of " +
-"quarter beads.  (Mutually exclusive to twelfth beads)." + nl +
-" " + nl +
-"Intended for the Russian Abacus." + nl +
-"Press \"T\" or \"t\" keys to toggle the availability of " +
-"twelfth beads.  (Mutually exclusive to quarter beads)." + nl +
-"Intended for the Roman Abacus." + nl +
-" " + nl +
-"Press \"P\" or \"p\" keys to toggle the availability of " +
-"quarter percent beads.   (Dependent on quarter beads (or" + nl +
-"twelfth beads)).  Intended for the older Russian Abacus." + nl +
-" " + nl +
-"Press \"B\" or \"b\" keys to toggle the availability of " +
-"subdecks.  (Dependent on twelfth beads (or quarter beads)" + nl +
-"and Roman format).  Intended for the Roman Abacus, where " +
-"the lowest value of the two at bottom of the rightmost" + nl +
-"column of beads are a twelfth of the column, second from " +
-"right." + nl +
-" " + nl +
-"Press \"E\" or \"e\" keys to toggle the availability of" +
-"subdecks.  (Dependent on twelfth beads (or quarter beads)" + nl +
-"and Roman format).  Intended for the Roman Abacus, where " +
-"the lowest value of the three at bottom of the rightmost" + nl +
-"column of beads are an eighth of the column, second from " +
-"right." + nl +
-" " + nl +
-"Press \"M\" or \"m\" keys to switch between it, uk, and fr " +
-"museum formats." + nl +
-" " + nl +
-"Press \"L\" or \"l\" keys to toggle the availability of " +
-"anomaly bars.  Intended to used with Japanese Abacus and" + nl +
-"base 20 for the Mesoamerican Abacus. (Mutually exclusive " +
-"to watch bars)." + nl +
-"Press \"W\" or \"w\" keys to toggle the availability of " +
-"watch bars.  Intended to represent seconds where hours" + nl +
-"and minutes can be set.  (Mutually exclusive to anomaly " +
-"bars)." + nl +
-" " + nl +
-"Press \">\" or \".\" keys to speed up the movement of beads." + nl +
-"Press \"<\" or \",\" keys to slow down the movement of beads." + nl +
-" " + nl +
-"Press \"@\" key to toggle the sound." + nl +
-" " + nl +
-"Press \"Esc\" key to hide program." + nl +
-" " + nl +
-"Press \"Q\", \"q\", or \"CTRL-C\" keys to kill program if an application." + nl +
-" " + nl +
-"The abacus may be resized.  Beads will reshape depending " +
-"on the room they have." + nl +
-" " + nl +
-"Demo Mode: in this mode, the abacus is controlled by the " +
-"program.  When started with the demo option, a second" + nl +
-"window is presented that should be placed directly below the " +
-"abacus-window. Descriptive text, and user prompts are" + nl +
-"displayed in this window.  Pressing 'q' during the demo " +
-"will quit it.  Clicking the left mouse-button with the" + nl +
-"pointer in the window will restart the demo (beginning " +
-"of current lesson).",
-				"OK", largeIcon, true);
+				AbacusInterface.TITLE + Messages.getString("AbacusApplet.FeaturesTitle"), //$NON-NLS-1$
+Messages.getString("AbacusApplet.MouseLeftInstructions")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.MouseRightInstructions")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.OInstructions")  //$NON-NLS-1$
++ nl + " " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.$Instructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.+Instructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.~Instructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.IInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.FInstructions") + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.GenericInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.VInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.SInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.UInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.TInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.PInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.BInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.EInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.MInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.LInstructions") + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.WInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.>Instructions") + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.<Instructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.@Instructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.EscInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.QInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.ResizeInstructions") + nl + //$NON-NLS-1$
+" " + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.DemoInstructions"), //$NON-NLS-1$
+				Messages.getString("AbacusApplet.OK"), largeIcon, true); //$NON-NLS-1$
 			aDialog.setBackground(Color.white);
 			aDialog.setVisible(true);
 		}
@@ -896,16 +783,13 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	public void referencesHelp() {
 		if (aDialog == null || !OKDialog.getActive()) {
 			aDialog = new OKDialog(ComponentUtil.findJFrame(this),
-				AbacusInterface.TITLE + ": References",
-"Luis Fernandes  http://www.ee.ryerson.ca/~elf/abacus/" + nl +
-"Lee Kai-chen, How to Learn Lee's Abacus, 1958, 58 pages." + nl +
-"Abacus Guide Book, 57 pages." + nl +
-"Georges Ifrah, The Universal history of Numbers, Wiley Press " +
-"2000, pp 209-211, 288-294." + nl +
-"Review of above: http://www.ams.org/notices/200201/rev-dauben.pdf" + nl +
-"David Eugene Smith, History of Mathematics Volume II, " +
-"Dover Publications, Inc 1958, pp 156-195." + nl,
-				"OK", mediumIcon, false);
+				AbacusInterface.TITLE + Messages.getString("AbacusApplet.ReferencesTitle"), //$NON-NLS-1$
+"Luis Fernandes  http://www.ee.ryerson.ca/~elf/abacus/" + nl + //$NON-NLS-1$
+"Lee Kai-chen, How to Learn Lee's Abacus, 1958, 58 pages. Abacus Guide Book, 57 pages." + nl + //$NON-NLS-1$
+"Georges Ifrah, The Universal history of Numbers, Wiley Press 2000, pp 209-211, 288-294." + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.ReviewReference") + nl + //$NON-NLS-1$
+"David Eugene Smith, History of Mathematics Volume II, Dover Publications, Inc 1958, pp 156-195." + nl, //$NON-NLS-1$
+				Messages.getString("AbacusApplet.OK"), mediumIcon, false); //$NON-NLS-1$
 			aDialog.setVisible(true);
 		}
 	}
@@ -913,13 +797,11 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	public void aboutHelp() {
 		if (aDialog == null || !OKDialog.getActive()) {
 			aDialog = new OKDialog(ComponentUtil.findJFrame(this),
-				AbacusInterface.TITLE + ": About",
-"Java AbacusApplet Version 8.0.3" + nl +
-"Send bugs (reports or fixes) to the author: " +
-"David Bagley <bagleyd@tux.org>" + nl +
-"The latest version is at: " +
-"http://www.tux.org/~bagleyd/abacus.html" + nl,
-				"OK", mediumIcon, false);
+				AbacusInterface.TITLE + Messages.getString("AbacusApplet.AboutTitle"), //$NON-NLS-1$
+Messages.getString("AbacusApplet.Version") + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.BugsReportInstructions") + nl + //$NON-NLS-1$
+Messages.getString("AbacusApplet.LatestVersion") + nl, //$NON-NLS-1$
+				Messages.getString("AbacusApplet.OK"), mediumIcon, false); //$NON-NLS-1$
 			aDialog.setVisible(true);
 		}
 	}
@@ -945,7 +827,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 
 	public Icon getIcon(String string, int sx, int sy) {
 		if (getApplication()) {
-			URL url = AbacusApplet.class.getResource("/" + string);
+			URL url = AbacusApplet.class.getResource("/" + string); //$NON-NLS-1$
 
 			if (url == null)
 				return null;
@@ -958,7 +840,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 
 	public AudioClip getAudioClip(String string) {
 		if (getApplication()) {
-			URL url = AbacusApplet.class.getResource("/" + string);
+			URL url = AbacusApplet.class.getResource("/" + string); //$NON-NLS-1$
 
 			if (url == null)
 				return null;
@@ -1057,11 +939,11 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				netscape.javascript.JSObject win =
 					netscape.javascript.JSObject.getWindow(
 					this);
-				win.call("writeDemoCookie", null);
+				win.call("writeDemoCookie", null); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			//e.printStackTrace();
-			showMessage("no Cookies or JavaScript");
+			showMessage(Messages.getString("AbacusApplet.NoCookiesOrJsError")); //$NON-NLS-1$
 		}
 	}
 
@@ -1071,11 +953,11 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				netscape.javascript.JSObject win =
 					netscape.javascript.JSObject.getWindow(
 					this);
-				win.call("readDemoCookie", null);
+				win.call("readDemoCookie", null); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			//e.printStackTrace();
-			showMessage("no Cookies or JavaScript");
+			showMessage(Messages.getString("AbacusApplet.NoCookiesOrJsError")); //$NON-NLS-1$
 		}
 	}
 
@@ -1087,7 +969,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				netscape.javascript.JSObject win =
 					netscape.javascript.JSObject.getWindow(
 					this);
-				win.call("shuffleDown", null);
+				win.call("shuffleDown", null); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -1103,7 +985,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				netscape.javascript.JSObject win =
 					netscape.javascript.JSObject.getWindow(
 					this);
-				win.call("quit", null);
+				win.call("quit", null); //$NON-NLS-1$
 			}
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -1211,11 +1093,11 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				bottomNumberValue = topFactorValue - 1;
 				topNumberValue = baseValue / topFactorValue - 1;
 			} else {
-				System.err.println("Base adjustment, strange format: topNumber " +
+				System.err.println("Base adjustment, strange format: topNumber " + //$NON-NLS-1$
 					topNumberValue +
-					", topFactor " + topFactorValue +
-					", newBase " + baseValue +
-					", oldBase " + oldValue);
+					", topFactor " + topFactorValue + //$NON-NLS-1$
+					", newBase " + baseValue + //$NON-NLS-1$
+					", oldBase " + oldValue); //$NON-NLS-1$
 			}
 			abacus.setBaseAbacus(baseValue);
 			if (leeValue && leftAuxAbacus != null) {
@@ -1336,10 +1218,10 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		String command = event.getActionCommand();
 
-		if ("Detach".equals(command)) {
+		if (Messages.getString("AbacusApplet.Detach").equals(command)) { //$NON-NLS-1$
 			popoutApplet();
 			return;
-		} else if ("Attach".equals(command)) {
+		} else if (Messages.getString("AbacusApplet.Attach").equals(command)) { //$NON-NLS-1$
 			popinApplet();
 			return;
 		}
@@ -1359,17 +1241,17 @@ public class AbacusApplet extends JApplet implements ActionListener {
 
 	public void callbackAbacus(AbacusCanvas ab, String value) {
 		if (leeValue && leftAuxAbacus.equals(ab)) {
-			if ((value.equals("0.0") || value.equals("0")) &&
+			if ((value.equals("0.0") || value.equals("0")) && //$NON-NLS-1$ //$NON-NLS-2$
 					leftAuxValueTextPrompt.isVisible())
 				return;
 			leftAuxValueTextField.setText(value);
 		} else if (leeValue && rightAuxAbacus.equals(ab)) {
-			if ((value.equals("0.0") || value.equals("0")) &&
+			if ((value.equals("0.0") || value.equals("0")) && //$NON-NLS-1$ //$NON-NLS-2$
 					rightAuxValueTextPrompt.isVisible())
 				return;
 			rightAuxValueTextField.setText(value);
 		} else {
-			if (leeValue && (value.equals("0.0") || value.equals("0")) &&
+			if (leeValue && (value.equals("0.0") || value.equals("0")) && //$NON-NLS-1$ //$NON-NLS-2$
 					valueTextPrompt.isVisible())
 				return;
 			valueTextField.setText(value);
@@ -1377,10 +1259,10 @@ public class AbacusApplet extends JApplet implements ActionListener {
 	}
 
 	public static void callbackAbacus(int aux, int deck, int rail, int number) {
-		System.out.println(aux + " " + deck + " " + rail +
-			" " + number + " 4");
-		System.out.println("Lesson" + nl + nl + nl +
-			"Press Space-bar");
+		System.out.println(aux + " " + deck + " " + rail + //$NON-NLS-1$ //$NON-NLS-2$
+			" " + number + " 4"); //$NON-NLS-1$ //$NON-NLS-2$
+		System.out.println(Messages.getString("AbacusApplet.Lesson") + nl + nl + nl + //$NON-NLS-1$
+			Messages.getString("AbacusApplet.PressSpaceBar")); //$NON-NLS-1$
 	}
 
 	static StringBuffer cleanString(StringBuffer dirty) {
@@ -1402,7 +1284,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 
 	public void clearAllBeads(int aux) {
 		if (aux == 0) {
-			valueTextField.setText("0.0");
+			valueTextField.setText("0.0"); //$NON-NLS-1$
 		} else if (leeValue && aux == AbacusInterface.LEFT_AUX) {
 			leftAuxAbacus.clearAllBeads();
 		} else if (leeValue && aux == AbacusInterface.RIGHT_AUX) {
@@ -1425,7 +1307,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				//leftAuxValueTextField.setText("0.0");
 				//rightAuxValueTextField.setText("0.0");
 			}
-			valueTextField.setText("0.0");
+			valueTextField.setText("0.0"); //$NON-NLS-1$
 			break;
 		case AbacusInterface.ACTION_INCREMENT:
 			if (!abacus.equals(ab))
@@ -1658,7 +1540,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				delaySlider.setValue(delayValue / inc);
 			break;
 		default:
-			System.out.println("Callback:" + reason);
+			System.out.println("Callback:" + reason); //$NON-NLS-1$
 		}
 	}
 
@@ -1704,24 +1586,24 @@ public class AbacusApplet extends JApplet implements ActionListener {
 
 			// Allows menus to be on top of canvas
 			JPopupMenu.setDefaultLightWeightPopupEnabled(false);
-			menu = new JMenu("File");
+			menu = new JMenu(Messages.getString("AbacusApplet.File")); //$NON-NLS-1$
 			// Comment out next line to DEBUG
 			if (!getApplication()) {
-				menu.add(detachMenuItem = new JMenuItem("Detach"));
+				menu.add(detachMenuItem = new JMenuItem(Messages.getString("AbacusApplet.Detach"))); //$NON-NLS-1$
 				detachMenuItem.setMnemonic(KeyEvent.VK_H);
 				detachMenuItem.addActionListener(this);
 				menu.addSeparator();
 			}
-			menu.add(menuItem = new JMenuItem("Exit"));
+			menu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.Exit"))); //$NON-NLS-1$
 			menuItem.setMnemonic(KeyEvent.VK_X);
 			menuItem.addActionListener(this);
 			menuBar.add(menu);
-			menu = new JMenu("Controls");
-			submenu = new JMenu("Bead Control");
-			submenu.add(menuItem = new JMenuItem("Clear"));
+			menu = new JMenu(Messages.getString("AbacusApplet.Controls")); //$NON-NLS-1$
+			submenu = new JMenu(Messages.getString("AbacusApplet.BeadControl")); //$NON-NLS-1$
+			submenu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.Clear"))); //$NON-NLS-1$
 			menuItem.setMnemonic(KeyEvent.VK_C);
 			menuItem.addActionListener(this);
-			submenu.add(menuItem = new JMenuItem("Complement ~"));
+			submenu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.Complement"))); //$NON-NLS-1$
 			menuItem.addActionListener(this);
 			menu.add(submenu);
 			/* redundant */
@@ -1736,57 +1618,57 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			menuItem.setMnemonic(KeyEvent.VK_D);
 			menuItem.addActionListener(this);
 			menu.add(submenu);*/
-			submenu = new JMenu("Base Settings");
-			submenu.add(displaySlider = new Slider("Display Base",
+			submenu = new JMenu(Messages.getString("AbacusApplet.BaseSettings")); //$NON-NLS-1$
+			submenu.add(displaySlider = new Slider(Messages.getString("AbacusApplet.DisplayBase"), //$NON-NLS-1$
 				displayBaseValue,
 				AbacusInterface.MIN_BASE, AbacusInterface.MAX_BASE,
 				126));
-			submenu.add(baseSlider = new Slider("Abacus Base",
+			submenu.add(baseSlider = new Slider(Messages.getString("AbacusApplet.AbacusBase"), //$NON-NLS-1$
 				baseValue,
 				AbacusInterface.MIN_BASE, AbacusInterface.MAX_BASE,
 				126));
 			menu.add(submenu);
-			submenu = new JMenu("Display Format");
+			submenu = new JMenu(Messages.getString("AbacusApplet.DisplayFormat")); //$NON-NLS-1$
 			submenu.add(romanNumeralsMenuItem = new JCheckBoxMenuItem(
-				"Roman Nvmerals", romanNumeralsValue));
+				Messages.getString("AbacusApplet.RomanNumerals"), romanNumeralsValue)); //$NON-NLS-1$
 			romanNumeralsMenuItem.setMnemonic(KeyEvent.VK_V);
 			romanNumeralsMenuItem.addActionListener(this);
 			/*submenu.add(oldRomanNumeralsMenuItem = new JCheckBoxMenuItem(
 				"Ancient Roman Numerals )", ancientRomanNumeralsValue));
 			ancientRomanNumeralsMenuItem.addActionListener(this);*/
 			submenu.add(groupMenuItem = new JCheckBoxMenuItem(
-				"Group", groupValue));
+				Messages.getString("AbacusApplet.Group"), groupValue)); //$NON-NLS-1$
 			groupMenuItem.setMnemonic(KeyEvent.VK_G);
 			groupMenuItem.addActionListener(this);
 			menu.add(submenu);
-			submenu = new JMenu("Special Rails");
+			submenu = new JMenu(Messages.getString("AbacusApplet.SpecialRails")); //$NON-NLS-1$
 			submenu.add(signMenuItem = new JCheckBoxMenuItem(
-				"Sign", signValue));
+				Messages.getString("AbacusApplet.Sign"), signValue)); //$NON-NLS-1$
 			signMenuItem.setMnemonic(KeyEvent.VK_S);
 			signMenuItem.addActionListener(this);
 			submenu.add(quarterMenuItem = new JCheckBoxMenuItem(
-				"Quarter", (bottomPieceValue == 4)));
+				Messages.getString("AbacusApplet.Quarter"), (bottomPieceValue == 4))); //$NON-NLS-1$
 			quarterMenuItem.setMnemonic(KeyEvent.VK_U);
 			quarterMenuItem.addActionListener(this);
 			submenu.add(twelfthMenuItem = new JCheckBoxMenuItem(
-				"Twelfth", (bottomPieceValue == 6)));
+				Messages.getString("AbacusApplet.Twelfth"), (bottomPieceValue == 6))); //$NON-NLS-1$
 			twelfthMenuItem.setMnemonic(KeyEvent.VK_T);
 			twelfthMenuItem.addActionListener(this);
-			secondaryRailsMenu = new JMenu("Secondary Rails");
+			secondaryRailsMenu = new JMenu(Messages.getString("AbacusApplet.SecondaryRails")); //$NON-NLS-1$
 			secondaryRailsMenu.add(quarterPercentMenuItem = new JCheckBoxMenuItem(
-				"Quarter Percent", (bottomPiecePercentValue == 4)));
+				Messages.getString("AbacusApplet.QuarterPercent"), (bottomPiecePercentValue == 4))); //$NON-NLS-1$
 			quarterPercentMenuItem.setMnemonic(KeyEvent.VK_P);
 			quarterPercentMenuItem.addActionListener(this);
 			quarterMenuItem.setEnabled(bottomPieceValue != 6 && bottomPiecePercentValue == 0);
 			twelfthMenuItem.setEnabled(bottomPieceValue != 4 && bottomPiecePercentValue == 0);
-			secondaryRailsMenu.add(subdeckMenuItem = new JCheckBoxMenuItem("Subdeck"));
+			secondaryRailsMenu.add(subdeckMenuItem = new JCheckBoxMenuItem(Messages.getString("AbacusApplet.Subdeck"))); //$NON-NLS-1$
 			subdeckMenuItem.setMnemonic(KeyEvent.VK_B);
 			subdeckMenuItem.addActionListener(this);
-			secondaryRailsMenu.add(eighthMenuItem = new JCheckBoxMenuItem("Eighth"));
+			secondaryRailsMenu.add(eighthMenuItem = new JCheckBoxMenuItem(Messages.getString("AbacusApplet.Eighth"))); //$NON-NLS-1$
 			eighthMenuItem.setMnemonic(KeyEvent.VK_E);
 			eighthMenuItem.addActionListener(this);
 			//museumMenuItem.setMnemonic(KeyEvent.VK_M);
-			museumMenu = new JMenu("Museum");
+			museumMenu = new JMenu(Messages.getString("AbacusApplet.Museum")); //$NON-NLS-1$
 			ButtonGroup group = new ButtonGroup();
 			museumMenuItem = new JRadioButtonMenuItem[AbacusInterface.MAX_MUSEUMS];
 			for (int i = 0; i < AbacusInterface.MAX_MUSEUMS; i++) {
@@ -1799,49 +1681,49 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			submenu.add(secondaryRailsMenu);
 			submenu.addSeparator();
 			submenu.add(anomalyMenuItem = new JCheckBoxMenuItem(
-				"Anomaly", anomalyValue != 0 && anomalySqValue == 0));
+				Messages.getString("AbacusApplet.Anomaly"), anomalyValue != 0 && anomalySqValue == 0)); //$NON-NLS-1$
 			anomalyMenuItem.setMnemonic(KeyEvent.VK_L);
 			anomalyMenuItem.addActionListener(this);
 			anomalyMenuItem.setEnabled(anomalySqValue == 0);
 			submenu.add(watchMenuItem = new JCheckBoxMenuItem(
-				"Watch", anomalyValue != 0 && anomalySqValue != 0));
+				Messages.getString("AbacusApplet.Watch"), anomalyValue != 0 && anomalySqValue != 0)); //$NON-NLS-1$
 			watchMenuItem.setMnemonic(KeyEvent.VK_W);
 			watchMenuItem.addActionListener(this);
 			watchMenuItem.setEnabled(anomalySqValue != 0 || anomalyValue == 0);
 			menu.add(submenu);
-			submenu = new JMenu("Teach Options");
+			submenu = new JMenu(Messages.getString("AbacusApplet.TeachOptions")); //$NON-NLS-1$
 			submenu.add(rightToLeftAddMenuItem = new JCheckBoxMenuItem(
-				"Right To Left Add +", rightToLeftAddValue));
+				Messages.getString("AbacusApplet.RightToLeftAdd"), rightToLeftAddValue)); //$NON-NLS-1$
 			rightToLeftAddMenuItem.addActionListener(this);
 			submenu.add(rightToLeftMultMenuItem = new JCheckBoxMenuItem(
-				"Right To Left Mult *", rightToLeftMultValue));
+				Messages.getString("AbacusApplet.RightToLeftMult"), rightToLeftMultValue)); //$NON-NLS-1$
 			rightToLeftMultMenuItem.addActionListener(this);
 			menu.add(submenu);
-			submenu = new JMenu("Effects");
+			submenu = new JMenu(Messages.getString("AbacusApplet.Effects")); //$NON-NLS-1$
 			submenu.add(soundMenuItem = new JCheckBoxMenuItem(
-				"Sound @", sound));
-			delaySlider = new Slider("msec Delay",
+				Messages.getString("AbacusApplet.Sound"), sound)); //$NON-NLS-1$
+			delaySlider = new Slider("msec Delay", //$NON-NLS-1$
 				5, 0, 50, 126);
 			delaySlider.setIncrement(inc);
 			submenu.add(delaySlider);
 			soundMenuItem.addActionListener(this);
 			menu.add(submenu);
 			menuBar.add(menu);
-			menu = new JMenu("Learn");
-			menu.add(menuItem = new JMenuItem("Demo"));
+			menu = new JMenu(Messages.getString("AbacusApplet.Learn")); //$NON-NLS-1$
+			menu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.Demo"))); //$NON-NLS-1$
 			menuItem.setMnemonic(KeyEvent.VK_O);
 			menuItem.addActionListener(this);
-			menu.add(menuItem = new JMenuItem("Teach $"));
+			menu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.Teach"))); //$NON-NLS-1$
 			menuItem.addActionListener(this);
 			menuBar.add(menu);
-			menu = new JMenu("Help");
-			menu.add(menuItem = new JMenuItem("Description ?"));
+			menu = new JMenu(Messages.getString("AbacusApplet.Help")); //$NON-NLS-1$
+			menu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.Description"))); //$NON-NLS-1$
 			menuItem.addActionListener(this);
-			menu.add(menuItem = new JMenuItem("Features !"));
+			menu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.Features"))); //$NON-NLS-1$
 			menuItem.addActionListener(this);
-			menu.add(menuItem = new JMenuItem("References ^"));
+			menu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.References"))); //$NON-NLS-1$
 			menuItem.addActionListener(this);
-			menu.add(menuItem = new JMenuItem("About"));
+			menu.add(menuItem = new JMenuItem(Messages.getString("AbacusApplet.About"))); //$NON-NLS-1$
 			menuItem.setMnemonic(KeyEvent.VK_A);
 			menuItem.addActionListener(this);
 			menuBar.add(menu);
@@ -1856,7 +1738,7 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			info0Panel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 0));
 			info0Panel.add(leftPanel);
 			info0Panel.add(rightPanel);*/
-			railSlider = new Slider("Abacus Size",
+			railSlider = new Slider(Messages.getString("AbacusApplet.AbacusSize"), //$NON-NLS-1$
 				railsValue, AbacusInterface.MIN_RAILS,
 				((railsValue > MAX_RAILS) ? railsValue : MAX_RAILS),
 				126);
@@ -1864,16 +1746,16 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				15, 5));
 			comboBoxPanel.setLayout(new FlowLayout(FlowLayout.LEFT,
 				5, 5));
-			comboBoxPanel.add(new JLabel("Format:"));
+			comboBoxPanel.add(new JLabel(Messages.getString("AbacusApplet.FormatTitle"))); //$NON-NLS-1$
 			for (AbacusInterface.Modes mode : AbacusInterface.Modes.values()) {
-				modeComboBox.addItem(mode.toString() + " " +
+				modeComboBox.addItem(mode.toString() + " " + //$NON-NLS-1$
 					AbacusInterface.formatStrings[mode.ordinal()],
 					(mode != AbacusInterface.Modes.Generic));
 			}
 			modeComboBox.setLightWeightPopupEnabled(false);
 			modeComboBox.setSelectedItem(
 				AbacusInterface.Modes.values()[modeValue].toString() +
-					" " + AbacusInterface.formatStrings[modeValue]);
+					" " + AbacusInterface.formatStrings[modeValue]); //$NON-NLS-1$
 			comboBoxPanel.add(modeComboBox);
 			basicControlPanel.add(railSlider);
 			basicControlPanel.add(comboBoxPanel);
@@ -1894,15 +1776,15 @@ public class AbacusApplet extends JApplet implements ActionListener {
 				info1Panel.add(leftAuxValuePanel);
 				info1Panel.add(rightAuxValuePanel);
 			}
-			leftAuxValueTextPrompt = new TextPrompt("Left Auxiliary",
+			leftAuxValueTextPrompt = new TextPrompt(Messages.getString("AbacusApplet.LeftAuxiliary"), //$NON-NLS-1$
 				leftAuxValueTextField);
 			leftAuxValueTextPrompt.changeStyle(Font.ITALIC);
 			leftAuxValueTextPrompt.setForeground(leftAuxBeadColor.darker().darker());
-			rightAuxValueTextPrompt = new TextPrompt("Right Auxiliary",
+			rightAuxValueTextPrompt = new TextPrompt(Messages.getString("AbacusApplet.RightAuxiliary"), //$NON-NLS-1$
 				rightAuxValueTextField);
 			rightAuxValueTextPrompt.changeStyle(Font.ITALIC);
 			rightAuxValueTextPrompt.setForeground(rightAuxBeadColor.darker().darker());
-			valueTextPrompt = new TextPrompt("Primary", valueTextField);
+			valueTextPrompt = new TextPrompt(Messages.getString("AbacusApplet.Primary"), valueTextField); //$NON-NLS-1$
 			valueTextPrompt.changeStyle(Font.ITALIC + Font.BOLD);
 			valueTextPrompt.setForeground(primaryBeadColor.darker().darker());
 		}
@@ -2191,41 +2073,42 @@ public class AbacusApplet extends JApplet implements ActionListener {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		String icon = (nl.compareTo("\n") == 0) ?
+		String icon = (nl.compareTo("\n") == 0) ? //$NON-NLS-1$
 			AbacusInterface.ICONS_48x48[0] :
 			AbacusInterface.ICONS_16x16[0];
-		URL url = AbacusApplet.class.getResource("/" + icon);
+		URL url = AbacusApplet.class.getResource("/" + icon); //$NON-NLS-1$
 
 		argumentParser = new ArgumentParser(args);
-		if (argumentParser.hasOption("?")) {
-			System.out.println("usage:" + nl +
-"\t[-windowWidth={int}] [-windowHeight={int}]" + nl +
-"\t[-windowX={int}] [-windowY={int}]" + nl +
-"\t[-primaryBeadColor={int}] [-leftAuxBeadColor={int}]" + nl +
-"\t[-rightAuxBeadColor={int}] [-secondaryBeadColor={int}]" + nl +
-"\t[-highlightBeadColor={int}]" + nl +
-"\t[-primaryRailColor={int}] [-secondaryRailColor={int}]" + nl +
-"\t[-highlightRailColor={int}] [-lineRailColor={int}]" + nl +
-"\t[-borderColor={int}] [-fgColor={int}] [-bgColor={int}]" + nl +
-"\t[-sound={bool}] [-delay={int}] [-script={bool}]" + nl +
-"\t[-rightToLeftAdd={bool}] [-rightToLeftMult={bool}]" + nl +
-"\t[-control={bool}] [-lee={bool}] [-rails={int}]" + nl +
-"\t[-leftAuxRails={int}] [-rightAuxRails={int}] [-vertical={bool}]" + nl +
-"\t[-colorScheme={int}] [-slot={bool}] [-diamond={bool}]" + nl +
-"\t[-railIndex={int}] [-topOrient={bool}] [-bottomOrient={bool}]" + nl +
-"\t[-topNumber={int}] [-bottomNumber={int}] [-topFactor={int}]" + nl +
-"\t[-bottomFactor={int}] [-topSpaces={int}] [-bottomSpaces={int}]" + nl +
-"\t[-topPiece={int}] [-bottomPiece={int}] [-topPiecePercent={int}]" + nl +
-"\t[-bottomPiecePercent={int}] [-shiftPercent={int}]" + nl +
-"\t[-subdeck={int}] [-subbead={int}] [-sign={bool}]" + nl +
-"\t[-decimalPosition={int}] [-groupSize={int}] [-group={bool}]" + nl +
-"\t[-decimalComma={bool}] [-base={int}] [-eighth={bool}]" + nl +
-"\t[-anomaly={int}] [-shiftAnomaly={bool}] [-anomalySq={int}]" + nl +
-"\t[-shiftAnomalySq={bool}] [-displayBase={int}]" + nl +
-"\t[-pressOffset={bool}] [-romanNumerals={bool}]" + nl +
-"\t[-latin={bool}] [-ancientRoman={bool}] [-modernRoman={bool}]" + nl +
-"\t[-format={chinese|japanese|korean|roman|russian|danish|generic}]" + nl +
-"\t[-museum={it|uk|fr}]");
+		
+		if (argumentParser.hasOption("?")) { //$NON-NLS-1$
+			System.out.println("usage:" + nl + //$NON-NLS-1$
+"\t[-windowWidth={int}] [-windowHeight={int}]" + nl + //$NON-NLS-1$
+"\t[-windowX={int}] [-windowY={int}]" + nl + //$NON-NLS-1$
+"\t[-primaryBeadColor={int}] [-leftAuxBeadColor={int}]" + nl + //$NON-NLS-1$
+"\t[-rightAuxBeadColor={int}] [-secondaryBeadColor={int}]" + nl + //$NON-NLS-1$
+"\t[-highlightBeadColor={int}]" + nl + //$NON-NLS-1$
+"\t[-primaryRailColor={int}] [-secondaryRailColor={int}]" + nl + //$NON-NLS-1$
+"\t[-highlightRailColor={int}] [-lineRailColor={int}]" + nl + //$NON-NLS-1$
+"\t[-borderColor={int}] [-fgColor={int}] [-bgColor={int}]" + nl + //$NON-NLS-1$
+"\t[-sound={bool}] [-delay={int}] [-script={bool}]" + nl + //$NON-NLS-1$
+"\t[-rightToLeftAdd={bool}] [-rightToLeftMult={bool}]" + nl + //$NON-NLS-1$
+"\t[-control={bool}] [-lee={bool}] [-rails={int}]" + nl + //$NON-NLS-1$
+"\t[-leftAuxRails={int}] [-rightAuxRails={int}] [-vertical={bool}]" + nl + //$NON-NLS-1$
+"\t[-colorScheme={int}] [-slot={bool}] [-diamond={bool}]" + nl + //$NON-NLS-1$
+"\t[-railIndex={int}] [-topOrient={bool}] [-bottomOrient={bool}]" + nl + //$NON-NLS-1$
+"\t[-topNumber={int}] [-bottomNumber={int}] [-topFactor={int}]" + nl + //$NON-NLS-1$
+"\t[-bottomFactor={int}] [-topSpaces={int}] [-bottomSpaces={int}]" + nl + //$NON-NLS-1$
+"\t[-topPiece={int}] [-bottomPiece={int}] [-topPiecePercent={int}]" + nl + //$NON-NLS-1$
+"\t[-bottomPiecePercent={int}] [-shiftPercent={int}]" + nl + //$NON-NLS-1$
+"\t[-subdeck={int}] [-subbead={int}] [-sign={bool}]" + nl + //$NON-NLS-1$
+"\t[-decimalPosition={int}] [-groupSize={int}] [-group={bool}]" + nl + //$NON-NLS-1$
+"\t[-decimalComma={bool}] [-base={int}] [-eighth={bool}]" + nl + //$NON-NLS-1$
+"\t[-anomaly={int}] [-shiftAnomaly={bool}] [-anomalySq={int}]" + nl + //$NON-NLS-1$
+"\t[-shiftAnomalySq={bool}] [-displayBase={int}]" + nl + //$NON-NLS-1$
+"\t[-pressOffset={bool}] [-romanNumerals={bool}]" + nl + //$NON-NLS-1$
+"\t[-latin={bool}] [-ancientRoman={bool}] [-modernRoman={bool}]" + nl + //$NON-NLS-1$
+"\t[-format={chinese|japanese|korean|roman|russian|danish|generic}]" + nl + //$NON-NLS-1$
+"\t[-museum={it|uk|fr}]"); //$NON-NLS-1$
 			return;
 		}
 		AbacusApplet abacusApplet = new AbacusApplet();

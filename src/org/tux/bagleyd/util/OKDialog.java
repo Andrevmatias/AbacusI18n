@@ -7,18 +7,20 @@ package org.tux.bagleyd.util;
  * by Ed Anuff, pp 287-289
  */
 
-import java.awt.Dialog;
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 /**
@@ -38,8 +40,11 @@ public class OKDialog extends Dialog {
 		super(parent, titleText, true);
 		if (messageText != null) {
 			if (scroll) {
+				JTextArea textArea = new JTextArea(messageText, 0, 60);
+				textArea.setLineWrap(true);
+				textArea.setWrapStyleWord(true);
 				JScrollPane scrollPane = new JScrollPane(
-					new MultiLineLabel(messageText),
+					textArea,
 					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				add(scrollPane, BorderLayout.CENTER);
